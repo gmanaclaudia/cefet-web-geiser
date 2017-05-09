@@ -1,0 +1,32 @@
+{
+  "name": "cefet-web-geiser",
+  "version": "1.0.0",
+  "description": "TP de web",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gmanaclaudia/cefet-web-geiser.git"
+  },
+  "keywords": [
+    "node",
+    "package",
+    "geiser"
+  ],
+  "author": "gmanaclaudia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gmanaclaudia/cefet-web-geiser/issues"
+  },
+  "homepage": "https://github.com/gmanaclaudia/cefet-web-geiser#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "hbs": "^4.0.1",
+    "underscore": "^1.8.3"
+  }
+}
