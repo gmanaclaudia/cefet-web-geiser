@@ -28,14 +28,22 @@ app.set('view engine', 'hbs');
 // dica: o handler desta função é bem simples - basta passar para o template
 //       os dados do arquivo data/jogadores.json
 
-// app.set('views', 'server/views');
-// app.get()
+
+app.set('views', 'server/views');
+app.get('/', function(request, response) {
+  response.render('index', {
+    jogadores: db.jogadores.players
+  });
+});
+
 
 // EXERCÍCIO 3
 // definir rota para página de detalhes de um jogador --> renderizar a view
 // jogador, usando os dados do banco de dados "data/jogadores.json" e
 // "data/jogosPorJogador.json", assim como alguns campos calculados
 // dica: o handler desta função pode chegar a ter umas 15 linhas de código
+
+
 
 
 // EXERCÍCIO 1
