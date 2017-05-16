@@ -38,8 +38,8 @@
                 <dt>Nome real:</dt><dd>{{player.realname}}</dd>
                 <dt>País:</dt><dd>{{player.loccountrycode}}</dd>
                 <dt>Perfil no steam:</dt><dd><a href="{{player.profileurl}}">@{{player.personaname}}</a></dd>
-                <dt>Quantidade jogos:</dt><dd>{{descJogos.game_count}}</dd>
-                <dt>Não jogados:</dt><dd>{{descJogos.not_played}}</dd>
+                <dt>Quantidade jogos:</dt><dd>{{player.totalJogos}}</dd>
+                <dt>Não jogados:</dt><dd>{{player.not_played}}</dd>
               </dl>
             </div>
           </div>
@@ -77,7 +77,7 @@
         <div class="row-fluid">
           <ul class="col-md-12 games-card-list media-list">
             <!-- Primeiro card de jogo -->
-            {{#each dadosJogador.games}}
+            {{#each descJogos.games}}
             <li class="media game-card">
               <div class="media-left media-middle">
                 <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{appid}}/{{img_logo_url}}.jpg">

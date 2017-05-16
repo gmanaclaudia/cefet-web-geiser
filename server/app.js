@@ -53,17 +53,26 @@ app.get('/jogador/:id_jogador', function(request, response){
 //dados de jogos do jogador
   let dadosJogador = db.jogosPorJogador[request.params.id_jogador];
 
+  //total de jogos
+  jogador.totalJogos = dadosJogador.game_count;
+
 //jogos nao jogados
-  dadosJogador.not_played = _.where(dadosJogador.games, {
-    playtime_forever: 0
-  }).lenght;
+
+let total = 0;
+  dadosJogador.games.forEach(function(el){
+    if (el.playtime_forever == 0){
+      total++;
+    }
+  });
+
+  jogador.not_played = total;
 
   //ordenar jogos por ordem decrescente
  let orderDecresc =  _.sortBy(dadosJogador.games, function(el) {
     return -el.playtime_forever;
   });
 
-  let favoritos =  _.first(dadosJogador.games, 5);
+  let favoritos =  _.first(orderDecresc, 5);
   dadosJogador.games = favoritos;
 
   //passando tempo jogado para horas
