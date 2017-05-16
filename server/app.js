@@ -1,13 +1,14 @@
-var express = require('express'),
+let express = require('express'),
     app = express();
-var fs = require('fs');
+let fs = require('fs');
+let _ = require('underscore');
 
 
 
 // carregar "banco de dados" (data/jogadores.json e data/jogosPorJogador.json)
 // você pode colocar o conteúdo dos arquivos json no objeto "db" logo abaixo
 // dica: 3-4 linhas de código (você deve usar o módulo de filesystem (fs))
-var db = {
+let db = {
   jogadores: JSON.parse(fs.readFileSync(__dirname + '/data/jogadores.json', 'utf8')),
 
   jogosPorJogador: JSON.parse(fs.readFileSync(__dirname + '/data/jogosPorJogador.json', 'utf8'))
@@ -43,7 +44,40 @@ app.get('/', function(request, response) {
 // "data/jogosPorJogador.json", assim como alguns campos calculados
 // dica: o handler desta função pode chegar a ter umas 15 linhas de código
 
+app.get('jogador/:id_jogador', function(request, response){
 
+  let jogador = _.find(db.jogadores.players, function(el) {
+     return el.steamid === request.params.id_jogador;
+  });
+
+//dados de jogos do jogador
+  let dadosJogador = jogosPorJogador[request.params.id_jogador];
+
+//jogos nao jogados
+  dadosJogador.not_played = _.where(dadosJogador.games, {
+    playtime_forever: 0
+  }).lenght;
+
+  //ordenar jogos por ordem decrescente
+ let orderDecresc =  _.sortBy(dadosJogador.games, function(el) {
+    return -el.playtime_forever;
+  });
+
+  let favoritos =  _.first(dadosJogador.games, 5);
+  dadosJogador.games = favoritos;
+
+  //passando tempo jogado para horas
+  dadosJogador.games = _.map(dadosJogador.games, function(el) {
+    el.playtime_forever = Math.round(el.playtime_forever/60);
+    return el;
+  });
+
+  response.render('jogador', {
+    player: jogador,
+    descJogos: dadosJogador,
+    maisJogado: dadosJogador.games[0]
+  });
+});
 
 
 // EXERCÍCIO 1
