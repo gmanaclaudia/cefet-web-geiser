@@ -44,14 +44,14 @@ app.get('/', function(request, response) {
 // "data/jogosPorJogador.json", assim como alguns campos calculados
 // dica: o handler desta função pode chegar a ter umas 15 linhas de código
 
-app.get('jogador/:id_jogador', function(request, response){
+app.get('/jogador/:id_jogador', function(request, response){
 
   let jogador = _.find(db.jogadores.players, function(el) {
      return el.steamid === request.params.id_jogador;
   });
 
 //dados de jogos do jogador
-  let dadosJogador = jogosPorJogador[request.params.id_jogador];
+  let dadosJogador = db.jogosPorJogador[request.params.id_jogador];
 
 //jogos nao jogados
   dadosJogador.not_played = _.where(dadosJogador.games, {
